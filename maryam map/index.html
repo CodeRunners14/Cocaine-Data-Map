@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Minimal map</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.12/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3-geo-projection/0.2.9/d3.geo.projection.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+  </head>
+  <body>
+		<h1>Cocaine price</h1>
+		<button id="btn-retail">Retail price</button>
+    <button id="btn-whole">Wholesale</button>
+    <div id="map"></div>
+		
+    <script>
+			//Creating space for the canvas where the map will go in the body
+      var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 1000 500");
+			
+			//Handles how the 3d path is projected onto the 2d screen.
+      var projection = d3.geo.robinson().translate([500, 250]);
+			
+			//what makes a path a path - ready to take data in the open parenthesis.
+      var path = d3.geo.path().projection(projection);
+			
+			//A callback to get the data out of the world.topo.json file.
+      d3.json("world.topo.json", function(world) {
+        var countries = topojson.feature(world, world.objects["world.geo"]).features;
+        for (var i=0; i<countries.length; i++) {
+	    svg.append("path").attr("class", "country").attr("id", countries[i].id).attr("d", path(countries[i]))
+	   }
+      });
+			
+			//A callback to get data out of the cocaineprice.json file.
+			d3.json("cocaineprice.json",function(coca){
+				var colorScale = d3.scale.linear()
+				.domain([0, 50,300, 1200])
+        .range(["#d7b5d8", "#df65b0", '#ce1256', '#980043']); 
+
+			
+    </script>
+
+  </body>
+</html>
