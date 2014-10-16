@@ -18,14 +18,20 @@ document.addEventListener("DOMContentLoaded", function() {
   
     document.getElementById("retail-btn").addEventListener("click", function(){
       selector = "retail";
+      drawWorld();
 });
     document.getElementById("wholesale-btn").addEventListener("click", function(){
       selector = "wholesale";
+      drawWorld();
 });
   
-    var color = d3.scale.linear()
+    var colorR = d3.scale.linear()
                     .domain([0, 1133])
                     .range(["grey", "red"]);
+  
+    var colorW = d3.scale.linear()
+                    .domain([0, 160000])
+                    .range(["grey", "blue"]);
   
     var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 1000 500");
             var projection = d3.geo.robinson().translate([500, 250]);
@@ -33,8 +39,16 @@ document.addEventListener("DOMContentLoaded", function() {
     
     function countryFill(id){
       if(coke[id]){
-        return color(coke[id].retail*5);
+        if(selector === "retail"){
+          return colorR(coke[id].retail*5);
+        }
+        if(selector === "wholesale"){
+          return colorW(coke[id].wholesale*5);
+        }
       }      
+      else{
+        return "#d3d3d3"
+      }
     }
   
     function drawWorld(){
@@ -42,10 +56,10 @@ document.addEventListener("DOMContentLoaded", function() {
         for (var i=0; i<countries.length; i++) {
           var countryID = countries[i].id;
              svg.append("path")
-               .attr("fill", countryFill(countryID))
                .attr("class", "country")
                .attr("id", countryID)
-               .attr("d",path(countries[i]));
+               .attr("d",path(countries[i]))
+               .attr("fill", countryFill(countryID));
         }
      }
   
