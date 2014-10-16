@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", function() {
   
     var colorR = d3.scale.linear()
                     .domain([0, 1133])
-                    .range(["grey", "red"]);
+                    .range(["#FFC0C0", "red"]);
   
     var colorW = d3.scale.linear()
                     .domain([0, 160000])
-                    .range(["grey", "blue"]);
+                    .range(["#ADD8E6", "blue"]);
   
     var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 1000 500");
             var projection = d3.geo.robinson().translate([500, 250]);
