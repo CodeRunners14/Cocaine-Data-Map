@@ -12,15 +12,17 @@ function toObject(arr) {
 
 var coke;
 var world;
-var selector = "retail";
+var selector = "wholesale";
 
 document.addEventListener("DOMContentLoaded", function() {
   
     document.getElementById("retail-btn").addEventListener("click", function(){
       selector = "retail";
+      drawWorld();
 });
     document.getElementById("wholesale-btn").addEventListener("click", function(){
       selector = "wholesale";
+      drawWorld();
 });
   
     var color = d3.scale.linear()
@@ -33,7 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
     
     function countryFill(id){
       if(coke[id]){
-        return color(coke[id].retail*5);
+        if(selector === "retail"){
+          return color(coke[id].retail*5);
+        }
+        if(selector === "wholesale"){
+          return color(coke[id].wholesale*5);
+        }
       }      
     }
   
@@ -42,10 +49,10 @@ document.addEventListener("DOMContentLoaded", function() {
         for (var i=0; i<countries.length; i++) {
           var countryID = countries[i].id;
              svg.append("path")
-               .attr("fill", countryFill(countryID))
                .attr("class", "country")
                .attr("id", countryID)
-               .attr("d",path(countries[i]));
+               .attr("d",path(countries[i]))
+               .attr("fill", countryFill(countryID));
         }
      }
   
