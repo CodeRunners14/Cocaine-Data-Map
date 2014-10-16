@@ -12,7 +12,7 @@ function toObject(arr) {
 
 var coke;
 var world;
-var selector = "wholesale";
+var selector = "retail";
 
 document.addEventListener("DOMContentLoaded", function() {
   
@@ -25,9 +25,13 @@ document.addEventListener("DOMContentLoaded", function() {
       drawWorld();
 });
   
-    var color = d3.scale.linear()
+    var colorR = d3.scale.linear()
                     .domain([0, 1133])
                     .range(["grey", "red"]);
+  
+    var colorW = d3.scale.linear()
+                    .domain([0, 160000])
+                    .range(["grey", "blue"]);
   
     var svg = d3.select("#map").append("svg").attr("viewBox", "0 0 1000 500");
             var projection = d3.geo.robinson().translate([500, 250]);
@@ -36,12 +40,15 @@ document.addEventListener("DOMContentLoaded", function() {
     function countryFill(id){
       if(coke[id]){
         if(selector === "retail"){
-          return color(coke[id].retail*5);
+          return colorR(coke[id].retail*5);
         }
         if(selector === "wholesale"){
-          return color(coke[id].wholesale*5);
+          return colorW(coke[id].wholesale*5);
         }
       }      
+      else{
+        return "#d3d3d3"
+      }
     }
   
     function drawWorld(){
