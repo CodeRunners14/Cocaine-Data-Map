@@ -25,21 +25,14 @@ describe('When a user navigates to the page', function () {
     
 	  it("The retail tab will be displayed", function (done){
 			 request.get('/')
-		        .expect(/<button id="btn-retail">/,done)
+		        .expect(/<button id="retail-btn">/,done)
 			 });
 	   
 	it("The wholesale tab will be displayed", function (done){
 			 request.get('/')
-		        .expect(/<button id="btn-whole">/,done)
+		        .expect(/<button id="wholesale-btn">/,done)
 			 });
 	
-	/*it("the retail price should be displayed in red", function(done){
-		  request.get('/')
-	         .expect(//,done)
-		 });
-	it("the wholesale price should be displayed in red", function(done){
-		  request.get('/')
-	         .expect(//,done)
-		});*/
+	
 });
 
