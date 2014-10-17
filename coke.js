@@ -17,10 +17,12 @@ var selector = "retail";
 document.addEventListener("DOMContentLoaded", function() {
   
     document.getElementById("retail-btn").addEventListener("click", function(){
+      svg.selectAll("*").remove();
       selector = "retail";
       drawWorld();
 });
     document.getElementById("wholesale-btn").addEventListener("click", function(){
+      svg.selectAll("*").remove();
       selector = "wholesale";
       drawWorld();
 });
