@@ -17,7 +17,6 @@ function toObject(arr) {
 
 document.addEventListener("DOMContentLoaded", function() {
   
-  //Buttons to switch between Wholesale and Retail
     document.getElementById("retail-btn").addEventListener("click", function(){
       selector = "retail";
       colorRefresh();
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }      
       else{
-        return "#d3d3d3"
+        return "#d3d3d3";
       }
     }
   
@@ -69,9 +68,8 @@ document.addEventListener("DOMContentLoaded", function() {
           d3.selectAll(".country")
             .data(countries)
               .attr("fill", function(d){
-                return countryFill(d.id)
-              })
-              
+                return countryFill(d.id);
+              });
     }
   
      d3.json("world.topo.json", function (worldy) {
