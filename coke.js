@@ -1,3 +1,8 @@
+var coke;
+var world;
+var selector = "retail";
+var countries;
+
 function toObject(arr) {
   var obj = {};
   for (var i = 0; i < arr.length; i++)
@@ -10,19 +15,16 @@ function toObject(arr) {
   return obj;
 }
 
-var coke;
-var world;
-var selector = "retail";
-
 document.addEventListener("DOMContentLoaded", function() {
   
+  //Buttons to switch between Wholesale and Retail
     document.getElementById("retail-btn").addEventListener("click", function(){
       selector = "retail";
-      drawWorld();
+      colorRefresh();
 });
     document.getElementById("wholesale-btn").addEventListener("click", function(){
       selector = "wholesale";
-      drawWorld();
+      colorRefresh();
 });
   
     var colorR = d3.scale.linear()
@@ -52,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   
     function drawWorld(){
-        var countries = topojson.feature(world, world.objects["world.geo"]).features;
+        countries = topojson.feature(world, world.objects["world.geo"]).features;
         for (var i=0; i<countries.length; i++) {
           var countryID = countries[i].id;
              svg.append("path")
@@ -62,6 +64,15 @@ document.addEventListener("DOMContentLoaded", function() {
                .attr("fill", countryFill(countryID));
         }
      }
+    
+    function colorRefresh(){
+          d3.selectAll(".country")
+            .data(countries)
+              .attr("fill", function(d){
+                return countryFill(d.id)
+              })
+              
+    }
   
      d3.json("world.topo.json", function (worldy) {
         world = worldy;
