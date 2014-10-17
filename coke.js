@@ -19,12 +19,10 @@ document.addEventListener("DOMContentLoaded", function() {
   
   //Buttons to switch between Wholesale and Retail
     document.getElementById("retail-btn").addEventListener("click", function(){
-      svg.selectAll("*").remove();
       selector = "retail";
       colorRefresh();
 });
     document.getElementById("wholesale-btn").addEventListener("click", function(){
-      svg.selectAll("*").remove();
       selector = "wholesale";
       colorRefresh();
 });
